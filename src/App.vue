@@ -48,7 +48,7 @@
     <br />
     <a href='#' @click="navigate(todo)">View </a>
 
-	<button @click="removeTodo(todo)">X</button>
+	<button v-on:click="removeTodo(todo)">X</button>
     <br />
     </div>
 </div>
@@ -86,6 +86,7 @@ export default {
       src: '',
       imgdata: '',
       file: '',
+      uuid: '',
       todos: []
     }
   },
@@ -125,7 +126,8 @@ export default {
           sender: this.sender,
           src: this.src,
           imgdata: this.imgdata,
-          id: Math.random()
+          id: Math.random(),
+          uuid: Math.random()
         })
         this.message = ''
         this.sender = ''
@@ -134,6 +136,7 @@ export default {
         this.imgdata = ''
         this.cover = ''
         this.id = ''
+        this.uuid = ''
       }
       // var vm = this
       // console.log('Uploading')
@@ -175,14 +178,14 @@ export default {
     // updateTodoText: function (todo, newText) {
     //   todosRef.child(todo['.key']).child('text').set(newText)
     // },
-    // removeTodo: function (todo) {
-    //   todosRef.child(todo['.key']).remove()
-    // },
+    removeTodo: function (todo) {
+      Todos.child(todo['.key']).remove()
+    },
     navigate: function (todo) {
       // window.open('/view?imgid=' + todo.id)
-      console.log(todo.id)
+      console.log(todo.uuid)
+      window.location.replace('/view?imgid=' + todo.uuid)
       // window.location.replace('/view?imgid=' + todo.id)
-      window.location.replace('/view?imgid=' + todo.id)
     }
   }
 }
